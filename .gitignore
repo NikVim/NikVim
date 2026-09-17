@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+Session.vim
+.netrwhist
+
+# Local, machine-specific overrides
+.nvim.lua
+.nvimrc
+.exrc
