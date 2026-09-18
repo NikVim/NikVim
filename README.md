@@ -26,6 +26,10 @@ NikVim expects users to learn the fundamentals of Neovim. Modal editing remains 
 
 The first milestone, [`Sensible defaults`](https://github.com/NikVim/nikvim/milestones), covers the native Neovim baseline (options, keymaps, autocmds) with no plugins yet. Install instructions will be added once there's something usable to install.
 
+## Requirements
+
+Neovim 0.12+. `lsp.lua` relies on `vim.lsp.config()` and `vim.lsp.enable()`, which don't exist on older versions.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
