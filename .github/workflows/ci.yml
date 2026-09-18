@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  stylua:
+    name: Format (stylua)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
+
+  luacheck:
+    name: Lint (luacheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leafo/gh-actions-lua@v10
+      - uses: leafo/gh-actions-luarocks@v5
+      - run: luarocks install luacheck
+      - run: luacheck init.lua lua
+
+  debug-leftovers:
+    name: No debug statements
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for leftover debug statements
+        run: |
+          if grep -rnE '\b(print|vim\.print|vim\.inspect)\s*\(' init.lua lua; then
+            echo "::error::Found leftover debug statement(s) above"
+            exit 1
+          fi
+
+  smoke:
+    name: Headless load (Neovim ${{ matrix.neovim_version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        neovim_version: [stable, nightly]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.neovim_version }}
+      - run: nvim --headless -u init.lua +qa
