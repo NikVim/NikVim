@@ -14,3 +14,6 @@ Session.vim
 .nvimrc
 .exrc
 after/plugin/local.lua
+
+# git-cliff release notes build artifact (see CONTRIBUTING.md)
+release-notes.md
