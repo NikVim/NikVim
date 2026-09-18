@@ -2,6 +2,8 @@
 
 Thanks for considering a contribution. NikVim is opinionated by design, so please open an issue to discuss non-trivial changes before writing code — it saves everyone a wasted PR.
 
+Requires Neovim 0.12+ — `lsp.lua` relies on `vim.lsp.config()`/`vim.lsp.enable()`, which don't exist on older versions.
+
 ## Proposing a change
 
 1. Check open [issues](https://github.com/NikVim/nikvim/issues) and the [milestones](https://github.com/NikVim/nikvim/milestones) to see if it's already tracked.

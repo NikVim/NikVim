@@ -25,7 +25,7 @@ jobs:
       - uses: leafo/gh-actions-lua@v10
       - uses: leafo/gh-actions-luarocks@v5
       - run: luarocks install luacheck
-      - run: luacheck init.lua lua
+      - run: luacheck init.lua lua lsp
 
   debug-leftovers:
     name: No debug statements
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check for leftover debug statements
         run: |
-          if grep -rnE '\b(print|vim\.print|vim\.inspect)\s*\(' init.lua lua; then
+          if grep -rnE '\b(print|vim\.print|vim\.inspect)\s*\(' init.lua lua lsp; then
             echo "::error::Found leftover debug statement(s) above"
             exit 1
           fi
