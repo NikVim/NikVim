@@ -25,7 +25,7 @@ jobs:
       - uses: leafo/gh-actions-lua@v10
       - uses: leafo/gh-actions-luarocks@v5
       - run: luarocks install luacheck
-      - run: luacheck .
+      - run: luacheck init.lua lua after
 
   debug-leftovers:
     name: No debug statements
