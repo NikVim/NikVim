@@ -1,0 +1,43 @@
+local opt = vim.opt
+
+-- Indentation
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftround = true
+opt.smartindent = true
+
+-- Search
+opt.ignorecase = true
+opt.smartcase = true
+opt.inccommand = "split" -- live preview substitutions in a split
+
+-- UI
+opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
+opt.signcolumn = "yes"
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.wrap = false
+opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.pumheight = 10
+
+-- Splits
+opt.splitright = true
+opt.splitbelow = true
+
+-- Files & undo
+opt.undofile = true -- persist undo history across sessions
+opt.swapfile = false
+opt.backup = false
+opt.updatetime = 250
+opt.timeoutlen = 300
+
+-- Editing
+opt.clipboard = "unnamedplus"
+opt.virtualedit = "block" -- allow cursor to move past end of line in visual block mode
+opt.completeopt = "menuone,noselect"
+opt.confirm = true -- prompt to save unsaved changes instead of erroring
