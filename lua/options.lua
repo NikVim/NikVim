@@ -1,13 +1,5 @@
 local opt = vim.opt
 
--- Indentation
-opt.expandtab = true
-opt.shiftwidth = 2
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftround = true
-opt.smartindent = true
-
 -- Search
 opt.ignorecase = true
 opt.smartcase = true

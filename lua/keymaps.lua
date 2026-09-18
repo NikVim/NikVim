@@ -19,10 +19,6 @@ map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
 
--- Keep selection after shifting indentation
-map("x", "<", "<gv", { desc = "Shift left" })
-map("x", ">", ">gv", { desc = "Shift right" })
-
 -- Move selected lines up/down
 map("x", "J", ":move '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("x", "K", ":move '<-2<CR>gv=gv", { desc = "Move selection up" })
