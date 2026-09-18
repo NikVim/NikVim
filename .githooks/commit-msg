@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Rejects commit messages that don't follow this repo's Conventional Commits
+# format (see CONTRIBUTING.md), since the changelog is generated from
+# commit history with git-cliff.
+#
+# Enable with: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+commit_msg_file="$1"
+subject="$(head -n1 "$commit_msg_file")"
+
+# Merge commits (created by GitHub's merge button) aren't conventional
+# commits and shouldn't be validated.
+if [[ "$subject" == Merge* ]]; then
+    exit 0
+fi
+
+types="feat|fix|docs|chore|refactor|perf|style|test|revert"
+pattern="^(${types})(\([a-z0-9_-]+\))?: [a-z0-9].*[^.]\$"
+
+if [[ ! "$subject" =~ $pattern ]]; then
+    echo "error: commit message does not follow Conventional Commits" >&2
+    echo "" >&2
+    echo "  got:      $subject" >&2
+    echo "  expected: <type>(<scope>): <description>" >&2
+    echo "  type:     one of ${types//|/, }" >&2
+    echo "  rules:    description is lowercase, imperative, no trailing period" >&2
+    echo "" >&2
+    echo "See CONTRIBUTING.md for the full convention." >&2
+    exit 1
+fi

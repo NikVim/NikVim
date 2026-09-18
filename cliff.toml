@@ -1,0 +1,47 @@
+# git-cliff configuration for NikVim.
+# Generates CHANGELOG.md / release notes from the Conventional Commits
+# history described in CONTRIBUTING.md and .claude/skills/commit/SKILL.md.
+# https://git-cliff.org/docs/configuration
+
+[changelog]
+header = """
+# Changelog
+
+All notable changes to this project are documented here.
+
+"""
+body = """
+{% if version %}\
+    ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+    ## [Unreleased]
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | striptags | trim | upper_first }}
+    {% for commit in commits %}
+        - {% if commit.scope %}*({{ commit.scope }})* {% endif %}{{ commit.message | upper_first }}
+    {%- endfor %}
+{% endfor %}\
+"""
+trim = true
+render_always = false
+footer = ""
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+require_conventional = false
+filter_commits = true
+sort_commits = "oldest"
+commit_parsers = [
+    { message = "^feat", group = "Features" },
+    { message = "^fix", group = "Bug Fixes" },
+    { message = "^docs", group = "Documentation" },
+    { message = "^perf", group = "Performance" },
+    { message = "^refactor", group = "Refactor" },
+    { message = "^style", group = "Styling" },
+    { message = "^test", group = "Testing" },
+    { message = "^chore", group = "Miscellaneous Tasks" },
+    { message = "^revert", group = "Reverts" },
+    { message = "^Merge", skip = true },
+]
