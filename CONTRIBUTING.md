@@ -38,3 +38,23 @@ This repo follows [Conventional Commits](https://www.conventionalcommits.org/), 
 - Add a body only when the *why* isn't obvious from the diff.
 
 See [`.claude/skills/commit/SKILL.md`](.claude/skills/commit/SKILL.md) for the full convention Claude follows in this repo.
+
+Enable the local commit hook to catch format mistakes before they land:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+## Releases
+
+CHANGELOG.md and GitHub release notes are generated from the commit history with [git-cliff](https://git-cliff.org/), configured in [`cliff.toml`](cliff.toml), only when a release is actually cut — not maintained continuously between merges. This only works if commit messages follow the Conventional Commits format above.
+
+To cut a release, tag the commit and generate the changelog and notes for that tag:
+
+```sh
+git tag v0.1.0
+git cliff -o CHANGELOG.md
+git cliff --latest --strip all -o release-notes.md
+```
+
+Commit the updated `CHANGELOG.md` alongside the tag. Use `release-notes.md` as the body when creating the GitHub release, then remove the file — it's a build artifact, not something to commit.
