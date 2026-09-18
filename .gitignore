@@ -13,3 +13,4 @@ Session.vim
 .nvim.lua
 .nvimrc
 .exrc
+after/plugin/local.lua
