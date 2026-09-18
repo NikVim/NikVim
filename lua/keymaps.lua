@@ -35,5 +35,14 @@ map("x", "p", '"_dP', { desc = "Paste" })
 -- Yank to end of line, matching D and C
 map("n", "Y", "y$", { desc = "Yank to end of line" })
 
--- Clear search highlight
-map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
+-- Dismiss floating windows, quickfix/location list, and search highlight
+map("n", "<Esc>", function()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= "" then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+  vim.cmd("cclose")
+  vim.cmd("silent! lclose")
+  vim.cmd("nohlsearch")
+end, { desc = "Close floats, quickfix and loclist, clear search highlight" })
